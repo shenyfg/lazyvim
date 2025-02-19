@@ -2,23 +2,34 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      document_highlight = {
-        enabled = false,
-      },
       servers = {
-        pyright = {},
+        ruff = {
+          init_options = {
+            settings = {
+              lint = {
+                enable = false,
+              },
+            },
+          },
+        },
+        -- pyright = {
+        --   capabilities = {
+        --     textDocument = {
+        --       publishDiagnostics = {
+        --         tagSupport = {
+        --           valueSet = { 2 },
+        --         },
+        --       },
+        --     },
+        --   },
+        -- mason = false,
+        -- autostart = false,
+        -- },
       },
-    },
-  },
-
-  {
-    "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        python = { "black" },
-        json = { "jq" },
-        markdown = { "mdformat" },
+      document_highlight = {
+        enabled = false, -- Disable highlight the same words
       },
+      inlay_hints = { enabled = false },
     },
   },
 }

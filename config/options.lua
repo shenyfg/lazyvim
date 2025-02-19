@@ -9,6 +9,7 @@ opt.undolevels = 1000
 opt.cursorline = false
 opt.list = false
 opt.completeopt = "menu,preview"
+-- opt.relativenumber = false
 
 opt.statuscolumn = ""
 -- opt.signcolumn = "auto"

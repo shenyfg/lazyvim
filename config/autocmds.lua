@@ -33,6 +33,21 @@ autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "text",
+  callback = function()
+    vim.bo.makeprg = "time python3 ./a.py"
+  end,
+})
+
+autocmd("FileType", {
+  pattern = "go",
+  callback = function()
+    vim.opt_local.expandtab = false -- 使用 Tab 而不是空格
+    vim.bo.makeprg = "time go run %"
+  end,
+})
+
 -- Disable auto fill in comment in the next line
 autocmd("FileType", {
   pattern = "*",

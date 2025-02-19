@@ -8,7 +8,6 @@ local opts = { noremap = true, silent = true, nowait = true }
 
 -- Delete default lazyvim mappings
 del("n", "<leader>l", { desc = "Lazy" })
-del({ "n", "t" }, "<c-/>", { desc = "Terminal (Root Dir)" })
 del({ "n", "v" }, "<leader>cf", { djsc = "Format" })
 del("n", "<c-_>", { desc = "which_key_ignore" })
 del("t", "<Esc><Esc>", { desc = "which_key_ignore" })
@@ -47,8 +46,10 @@ map("n", "L", "$", opts)
 map({ "o", "x" }, "L", "$h", opts)
 
 -- Buffers
-map("n", "<C-p>", "<cmd>bprevious<cr>", opts)
-map("n", "<C-n>", "<cmd>bnext<cr>", opts)
+map("n", "[b", "<cmd>BufferLineMovePrev<cr>", opts)
+map("n", "]b", "<cmd>BufferLineMoveNext<cr>", opts)
+map("n", "<C-p>", "<cmd>BufferLineCyclePrev<cr>", opts)
+map("n", "<C-n>", "<cmd>BufferLineCycleNext<cr>", opts)
 map("n", "<leader>bO", "<Cmd>BufferLineCloseOthers<CR><Cmd>only<CR>", { desc = "Delete Other Buffers and Windows" })
 
 -- Shortcuts for `Till` operations
@@ -80,10 +81,6 @@ map("n", "d:", "dt:", opts)
 map("n", "d_", "dt_", opts)
 map("n", "d-", "dt-", opts)
 
--- Directly correct spelling by option 1
-map({ "n" }, "+", "1z=", opts)
-map({ "v" }, "+", ":normal 1z=<CR>", opts)
-
 -- Temporary mappings for markdown editing
 map("n", "@,", "yt,i**<Esc>f,i**<Esc>", opts)
 map("n", "@.", "yt.i**<Esc>f.i**<Esc>", opts)
@@ -98,30 +95,4 @@ map("n", "@7", "7yei**<Esc>7ea**<Esc>", opts)
 map("n", "@8", "8yei**<Esc>8ea**<Esc>", opts)
 map("n", "@9", "9yei**<Esc>9ea**<Esc>", opts)
 
-function _G.c_w_o()
-  local win_count = vim.fn.winnr("$")
-
-  if win_count > 1 then
-    vim.cmd("mksession! ~/.session.vim")
-    vim.cmd("only")
-  end
-end
-
-function _G.c_w_u()
-  local win_count = vim.fn.winnr("$")
-  if win_count == 1 then
-    local path = vim.fn.expand("~/.session.vim")
-    local file = io.open(path, "r")
-    if file then
-      file:close()
-      vim.cmd("source " .. path)
-    else
-      print("session file: ~/.session.vim not exists")
-    end
-  end
-end
-
-map("n", "<C-w>o", ":lua c_w_o()<CR>", { silent = true, desc = "Close other windows" })
-map("n", "<C-w>u", ":lua c_w_u()<CR>", { silent = true, desc = "Restore last layout" })
-
-map("v", "lr", "<CMD>s/left/right/g<CR><Esc>", { desc = "Change lefts to rights" })
+map({ "n", "v" }, "<leader>lr", ":s/left/right/g<CR>:noh<CR>", { desc = "Change lefts to rights" })

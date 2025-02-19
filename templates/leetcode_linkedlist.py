@@ -18,5 +18,11 @@ def main():
         i += n
 
 
+def pl(p):
+    while p:
+        print(p.val)
+        p = p.next
+
+
 if __name__ == "__main__":
     main()

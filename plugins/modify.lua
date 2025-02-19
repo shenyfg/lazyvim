@@ -52,9 +52,6 @@ return {
   {
     "akinsho/bufferline.nvim",
     keys = {
-      { "<S-h>", false },
-      { "<S-l>", false },
-
       { "<M-1>", mode = { "n", "t", "v" }, "<Cmd>BufferLineGoToBuffer 1<CR>" },
       { "<M-2>", mode = { "n", "t", "v" }, "<Cmd>BufferLineGoToBuffer 2<CR>" },
       { "<M-3>", mode = { "n", "t", "v" }, "<Cmd>BufferLineGoToBuffer 3<CR>" },
